@@ -6,6 +6,7 @@ import History from './components/History'; // ✅ importar
 import Compare from './components/Compare'; // ✅ importar también si no lo hiciste
 import TestDetail from './components/TestDetail';
 import UploadJsonCollection from './components/UploadJsonCollection';
+import JsonCollectionPreview from './components/JsonCollectionPreview';
 
 
 
