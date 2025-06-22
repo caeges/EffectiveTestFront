@@ -30,24 +30,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-blue-50">
-      <header className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <img src="/logo192.png" alt="Logo" className="h-8" />
-          <span className="font-bold text-lg text-blue-800">EffectiveTest</span>
-        </div>
-        <nav className="flex items-center gap-6 text-sm text-gray-700">
-          <button onClick={() => navigate('/')} className="hover:text-blue-700">Home</button>
-          <button onClick={() => navigate('/history')} className="hover:text-blue-700">Tests</button>
-          <button onClick={() => navigate('/dashboard')} className="hover:text-blue-700">Reports</button>
-          <button
-            onClick={() => navigate('/login')}
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-md text-sm"
-          >
-            Login
-          </button>
-        </nav>
-      </header>
-
+    
       <main className="px-4 md:px-0 max-w-4xl mx-auto py-12 text-center">
         <h1 className="text-3xl font-bold text-blue-900 mb-2">Welcome to EffectiveTest</h1>
         <p className="text-gray-600 mb-8">Start testing your APIs effectively</p>
