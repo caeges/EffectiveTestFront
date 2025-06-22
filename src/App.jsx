@@ -8,6 +8,7 @@ import Compare from './components/Compare';
 import TestDetail from './components/TestDetail';
 import UploadJsonCollection from './components/UploadJsonCollection';
 import JsonCollectionPreview from './components/JsonCollectionPreview';
+import PrivateRoute from './components/PrivateRoute'; // nuevo
 
 function App() {
   return (
@@ -17,12 +18,26 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/new-test" element={<CreateTest />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/compare" element={<Compare />} />
-          <Route path="/upload" element={<UploadJsonCollection />} />
-          <Route path="/details/:id" element={<TestDetail />} />
-          <Route path="/upload-preview" element={<JsonCollectionPreview />} />
+
+          {/* Rutas protegidas */}
+          <Route path="/new-test" element={
+            <PrivateRoute><CreateTest /></PrivateRoute>
+          } />
+          <Route path="/history" element={
+            <PrivateRoute><History /></PrivateRoute>
+          } />
+          <Route path="/compare" element={
+            <PrivateRoute><Compare /></PrivateRoute>
+          } />
+          <Route path="/upload" element={
+            <PrivateRoute><UploadJsonCollection /></PrivateRoute>
+          } />
+          <Route path="/upload-preview" element={
+            <PrivateRoute><JsonCollectionPreview /></PrivateRoute>
+          } />
+          <Route path="/details/:id" element={
+            <PrivateRoute><TestDetail /></PrivateRoute>
+          } />
         </Routes>
       </main>
     </Router>

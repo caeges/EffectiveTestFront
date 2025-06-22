@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const PrivateRoute = ({ children }) => {
   const isAuthenticated = (() => {
@@ -12,7 +13,15 @@ const PrivateRoute = ({ children }) => {
     }
   })();
 
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    toast.warning('⚠️ Necesitas iniciar sesión para continuar', {
+      position: 'top-right',
+      autoClose: 3000,
+    });
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
 };
 
 export default PrivateRoute;
