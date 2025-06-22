@@ -71,7 +71,7 @@ const Home = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           <div onClick={() => navigate('/history')} className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition">
             <div className="text-blue-700 text-4xl mb-2">📊</div>
             <h3 className="text-lg font-semibold mb-1">View Test Results</h3>
@@ -84,10 +84,7 @@ const Home = () => {
             <p className="text-sm text-gray-500">Define and configure a new API test</p>
           </div>
 
-          <div
-            onClick={() => navigate('/history')}
-            className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition"
-          >
+          <div onClick={() => navigate('/history')} className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition">
             <div className="text-blue-600 text-4xl mb-2">📝</div>
             <h3 className="text-lg font-semibold mb-1">Manage Tests</h3>
             <p className="text-sm text-gray-500">Edit, delete, or organize your tests</p>
@@ -97,6 +94,15 @@ const Home = () => {
             <div className="text-indigo-600 text-4xl mb-2">📈</div>
             <h3 className="text-lg font-semibold mb-1">View Reports</h3>
             <p className="text-sm text-gray-500">Generate and view detailed reports</p>
+          </div>
+
+          <div
+            onClick={() => navigate('/upload')}
+            className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <div className="text-orange-600 text-4xl mb-2">📂</div>
+            <h3 className="text-lg font-semibold mb-1">Import JSON Collection</h3>
+            <p className="text-sm text-gray-500">Sube un archivo de colección JSON para ejecutar múltiples tests</p>
           </div>
         </div>
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const Compare = () => {
   const location = useLocation();
@@ -54,6 +56,31 @@ const Compare = () => {
     }
   };
 
+  const handleDownloadComparePDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text('Comparación de Pruebas - EffectiveTest', 14, 20);
+
+    const body = compareFields.map((field) => {
+      const valueA = testA[field] != null ? JSON.stringify(testA[field], null, 2) : '';
+      const valueB = testB[field] != null ? JSON.stringify(testB[field], null, 2) : '';
+      return [field, valueA, valueB];
+    });
+
+    doc.autoTable({
+      startY: 30,
+      head: [['Campo', 'Prueba A', 'Prueba B']],
+      body,
+      styles: { fontSize: 8, cellWidth: 'wrap' },
+      columnStyles: {
+        1: { cellWidth: 80 },
+        2: { cellWidth: 80 },
+      },
+    });
+
+    doc.save(`comparacion_${testA.id}_${testB.id}.pdf`);
+  };
+
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-6 flex justify-between items-center">
@@ -90,6 +117,15 @@ const Compare = () => {
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className="text-center mt-6">
+        <button
+          onClick={handleDownloadComparePDF}
+          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+        >
+          Descargar Comparación (.pdf)
+        </button>
       </div>
     </div>
   );

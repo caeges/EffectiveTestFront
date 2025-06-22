@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../axiosInstance'; // instancia que incluye el token
+import axiosInstance from '../axiosInstance';
 
 const History = () => {
   const [results, setResults] = useState([]);
@@ -94,6 +94,14 @@ const History = () => {
                   <p className="text-sm text-gray-500 mt-1">
                     ⏱ {parseFloat(result.responseTimeMs).toFixed(2)} ms
                   </p>
+
+                  {result.executedFromJsonCollection && (
+                    <div className="mt-2 text-xs text-gray-700">
+                      <p className="text-orange-600 font-medium">🗂 Ejecutado desde JSON Collection</p>
+                      <p><strong>Archivo:</strong> {result.jsonCollectionSourceName}</p>
+                      <p><strong>Item:</strong> {result.jsonItemName}</p>
+                    </div>
+                  )}
                 </div>
               );
             })}

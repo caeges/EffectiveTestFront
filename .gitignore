@@ -1,0 +1,27 @@
+# node modules
+node_modules/
+
+# producción y build
+/build
+/.next
+/.turbo
+
+# logs y errores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# archivos de entorno
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# editor config
+.vscode/
+.idea/
+.DS_Store
+
+# archivos comprimidos
+*.zip
