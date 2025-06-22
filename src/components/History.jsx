@@ -10,7 +10,7 @@ const History = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get('/api/tests');
+        const res = await axiosInstance.get('/tests');
         console.log('📦 Datos recibidos del backend:', res.data);
         setResults(res.data);
       } catch (err) {

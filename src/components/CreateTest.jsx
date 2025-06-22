@@ -15,7 +15,7 @@ const CreateTest = () => {
     setResponse(null);
 
     try {
-      const res = await axiosInstance.post('/api/tests/run', {
+      const res = await axiosInstance.post('/tests/run', {
         nombreDelTest,
         url,
         method,

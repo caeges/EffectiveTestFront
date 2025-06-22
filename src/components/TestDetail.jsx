@@ -10,7 +10,7 @@ const TestDetail = () => {
   useEffect(() => {
     const fetchTestDetail = async () => {
       try {
-        const res = await axiosInstance.get('/api/tests/${id}');
+        const res = await axiosInstance.get('/tests/${id}');
         setTest(res.data);
       } catch (err) {
         console.error('❌ Error al obtener detalle:', err.response?.data || err.message);
