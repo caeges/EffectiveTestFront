@@ -20,7 +20,7 @@ const UploadJsonCollection = () => {
     formData.append('file', file);
 
     try {
-      const response = await axiosInstance.post('/api/tests/upload-jsoncollection', formData, {
+      const response = await axiosInstance.post('/tests/upload-jsoncollection', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
