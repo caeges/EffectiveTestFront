@@ -95,7 +95,14 @@ const Home = () => {
             <h3 className="text-lg font-semibold mb-1">View Reports</h3>
             <p className="text-sm text-gray-500">Generate and view detailed reports</p>
           </div>
-
+          <div
+            onClick={() => navigate('/upload-preview')}
+            className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <div className="text-yellow-600 text-4xl mb-2">📂</div>
+            <h3 className="text-lg font-semibold mb-1">Subir JSON Collection</h3>
+            <p className="text-sm text-gray-500">Verifica endpoints antes de ejecutarlos</p>
+          </div>
           <div
             onClick={() => navigate('/upload')}
             className="cursor-pointer bg-white p-6 rounded-xl shadow hover:shadow-md transition"

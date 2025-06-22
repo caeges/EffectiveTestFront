@@ -21,6 +21,7 @@ function App() {
         <Route path="/compare" element={<Compare />} />  {/* ✅ integración */}
         <Route path="/upload" element={<UploadJsonCollection />} /> 
         <Route path="/details/:id" element={<TestDetail />} />
+        <Route path="/upload-preview" element={<JsonCollectionPreview />} />
       </Routes>
     </Router>
   );
