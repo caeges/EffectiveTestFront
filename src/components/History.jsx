@@ -4,6 +4,9 @@ import axiosInstance from '../axiosInstance';
 
 const History = () => {
   const [results, setResults] = useState([]);
+  const [groupedResults, setGroupedResults] = useState({});
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [selectedMap, setSelectedMap] = useState({});
   const navigate = useNavigate();
 
@@ -11,13 +14,11 @@ const History = () => {
     const fetchData = async () => {
       try {
         const res = await axiosInstance.get('/tests');
-        console.log('📦 Datos recibidos del backend:', res.data);
         setResults(res.data);
       } catch (err) {
         console.error('❌ Error al obtener historial de pruebas:', err.response?.data || err.message);
       }
     };
-
     fetchData();
   }, []);
 
@@ -45,12 +46,58 @@ const History = () => {
     navigate('/compare', { state: { testResults: selectedResults } });
   };
 
+  const handleFilter = async () => {
+    try {
+      const res = await axiosInstance.get('/api/tests/by-date-range', {
+        params: { from: fromDate, to: toDate },
+      });
+      setGroupedResults(res.data);
+    } catch (err) {
+      console.error('❌ Error al filtrar por fechas:', err.response?.data || err.message);
+    }
+  };
+
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h2 className="text-3xl font-bold text-blue-900 mb-6 text-center">
+    <div className="p-6 max-w-7xl mx-auto">
+      <h2 className="text-3xl font-bold text-blue-900 mb-4 text-center">
         Historial de Pruebas
       </h2>
 
+      {/* Filtros de fecha */}
+      <div className="flex flex-col md:flex-row gap-4 items-center mb-8 justify-center">
+        <div>
+          <label className="text-sm text-gray-700">Desde:</label><br />
+          <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} className="border px-3 py-1 rounded" />
+        </div>
+        <div>
+          <label className="text-sm text-gray-700">Hasta:</label><br />
+          <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} className="border px-3 py-1 rounded" />
+        </div>
+        <button onClick={handleFilter} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          🔍 Filtrar
+        </button>
+      </div>
+
+      {/* Resultados agrupados por fecha */}
+      {Object.keys(groupedResults).length > 0 && (
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">Resultados por Fecha</h3>
+          {Object.entries(groupedResults).map(([date, items]) => (
+            <div key={date} className="mb-6">
+              <h4 className="text-lg font-bold text-blue-700 mb-2">{date}</h4>
+              <ul className="space-y-1 pl-4">
+                {items.map((r, i) => (
+                  <li key={i} className="text-sm text-gray-700">
+                    <strong>{r.method}</strong> - {r.endPoint} - <span className={r.success ? 'text-green-600' : 'text-red-600'}>{r.statusCode}</span> - {r.responseTimeMs} ms
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Resultados generales */}
       {results.length === 0 ? (
         <p className="text-center text-gray-600">No hay resultados aún.</p>
       ) : (
@@ -108,6 +155,7 @@ const History = () => {
         </div>
       )}
 
+      {/* Botón Comparar */}
       <div className="text-center mt-8">
         <button
           onClick={handleCompare}
