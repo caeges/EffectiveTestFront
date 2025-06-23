@@ -24,7 +24,7 @@ const JsonCollectionPreview = () => {
     }
 
     try {
-      const response = await axiosInstance.post('/api/tests/run-parsed', selected);
+      const response = await axiosInstance.post('/tests/run-parsed', selected);
       setResults(response.data);
       toast.success('✅ Pruebas ejecutadas');
     } catch (error) {

@@ -18,7 +18,7 @@ const UploadJsonCollection = () => {
     formData.append('file', file);
 
     try {
-      const response = await axiosInstance.post('/api/tests/parse-jsoncollection', formData, {
+      const response = await axiosInstance.post('/tests/parse-jsoncollection', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
