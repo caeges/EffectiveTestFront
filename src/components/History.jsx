@@ -9,12 +9,18 @@ const History = () => {
   const [toDate, setToDate] = useState('');
   const [selectedMap, setSelectedMap] = useState({});
   const navigate = useNavigate();
+  
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axiosInstance.get('/tests');
-        setResults(res.data);
+        const ordered = res.data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+setResults(ordered);
+
+       // setResults(res.data);
       } catch (err) {
         console.error('❌ Error al obtener historial de pruebas:', err.response?.data || err.message);
       }
