@@ -48,7 +48,7 @@ const History = () => {
 
   const handleFilter = async () => {
     try {
-      const res = await axiosInstance.get('/api/tests/by-date-range', {
+      const res = await axiosInstance.get('/tests/by-date-range', {
         params: { from: fromDate, to: toDate },
       });
       setGroupedResults(res.data);
