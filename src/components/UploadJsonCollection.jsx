@@ -1,18 +1,16 @@
+// src/components/UploadJsonCollection.jsx
 import React, { useState } from 'react';
 import axiosInstance from '../axiosInstance';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 const UploadJsonCollection = () => {
   const [file, setFile] = useState(null);
-  const [message, setMessage] = useState('');
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    setMessage('');
-  };
+  const navigate = useNavigate();
 
   const handleUpload = async () => {
     if (!file) {
-      setMessage('❌ Selecciona un archivo JSON.');
+      toast.warning('⚠️ Selecciona un archivo .json');
       return;
     }
 
@@ -20,35 +18,38 @@ const UploadJsonCollection = () => {
     formData.append('file', file);
 
     try {
-      const response = await axiosInstance.post('/tests/upload-jsoncollection', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const response = await axiosInstance.post('/api/tests/parse-jsoncollection', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      setMessage(`✅ ${response.data}`);
+      const parsedItems = response.data;
+
+      // Navegamos pasando los datos
+      navigate('/upload-preview', { state: { items: parsedItems } });
     } catch (error) {
-      const msg = error.response?.data || 'Error al subir el archivo';
-      setMessage(`❌ ${msg}`);
+      toast.error('❌ Error al procesar el archivo');
     }
   };
 
   return (
-    <div className="p-4 border rounded-xl shadow-md bg-white">
-      <h2 className="text-xl font-semibold mb-2">Subir archivo JSON Collection</h2>
+    <div className="p-6 max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Subir JSON Collection</h2>
+
       <input
         type="file"
         accept=".json"
-        onChange={handleFileChange}
-        className="mb-2"
+        onChange={(e) => setFile(e.target.files[0])}
+        className="mb-4"
       />
+
       <button
         onClick={handleUpload}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
       >
-        Subir
+        Subir y Previsualizar
       </button>
-      {message && <p className="mt-3 text-sm">{message}</p>}
+
+      <ToastContainer />
     </div>
   );
 };
